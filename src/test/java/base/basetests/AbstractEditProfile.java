@@ -1,8 +1,9 @@
-package base;
+package base.basetests;
 
 import lombok.SneakyThrows;
 import models.UserProfile;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.concurrent.TimeUnit;
@@ -10,6 +11,9 @@ import java.util.concurrent.TimeUnit;
 public abstract class AbstractEditProfile extends AbstractTest {
 	@SneakyThrows
 	protected void editProfile(UserProfile profile) {
+		WebDriver driver = getApplicationManager().getDriver();
+		getApplicationManager().getLoginHelper().login();
+
 		driver.findElement(By.id("cUserLink")).click();
 		driver.findElement(By.id("elUserLink")).click();
 		driver.findElement(By.linkText("Профиль")).click();
