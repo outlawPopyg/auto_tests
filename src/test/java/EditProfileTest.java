@@ -1,14 +1,9 @@
+import base.AbstractEditProfile;
 import models.UserProfile;
 import org.junit.Test;
 
 
-public class ApProTest extends AbstractTest {
-
-
-	@Test
-	public void loginTest() {
-		login();
-	}
+public class EditProfileTest extends AbstractEditProfile {
 
 	@Test
 	public void editUserProfileBirthDate() {

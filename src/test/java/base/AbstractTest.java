@@ -1,3 +1,5 @@
+package base;
+
 import lombok.SneakyThrows;
 import models.UserProfile;
 import org.junit.After;
@@ -22,7 +24,7 @@ public abstract class AbstractTest {
 	private static final String password = "i!7am@pj_2CJUfd";
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		driver = new ChromeDriver();
 		baseUrl = "https://ap-pro.ru";
 		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
@@ -53,43 +55,6 @@ public abstract class AbstractTest {
 			System.out.println("Already authorized");
 		}
 
-	}
-
-	@SneakyThrows
-	protected void editProfile(UserProfile profile) {
-		driver.findElement(By.id("cUserLink")).click();
-		driver.findElement(By.id("elUserLink")).click();
-		driver.findElement(By.linkText("Профиль")).click();
-		driver.findElement(By.xpath("//ul[@id='elEditProfile']/li[2]/a/span")).click();
-
-		if (profile.getBirthDay() != null) {
-			driver.findElement(By.name("bday[day]")).click();
-			new Select(driver.findElement(By.name("bday[day]"))).selectByVisibleText(profile.getBirthDay().toString());
-		}
-
-		if (profile.getBirthMonth() != null) {
-			driver.findElement(By.name("bday[month]")).click();
-			new Select(driver.findElement(By.name("bday[month]"))).selectByVisibleText(profile.getBirthMonth().getValue());
-		}
-
-		if (profile.getBirthYear() != null) {
-			driver.findElement(By.name("bday[year]")).click();
-			new Select(driver.findElement(By.name("bday[year]"))).selectByVisibleText(profile.getBirthYear().toString());
-		}
-
-		if (profile.getSex() != null) {
-			driver.findElement(By.id("elSelect_core_pfield_4")).click();
-			new Select(driver.findElement(By.id("elSelect_core_pfield_4"))).selectByVisibleText(profile.getSex().getValue());
-		}
-
-		if (profile.getName() != null) {
-			driver.findElement(By.id("elInput_core_pfield_6")).click();
-			driver.findElement(By.id("elInput_core_pfield_6")).clear();
-			driver.findElement(By.id("elInput_core_pfield_6")).sendKeys(profile.getName());
-		}
-
-		driver.findElement(By.xpath("//div[@class='ipsDialog']/div/div/form/ul/li/button")).click();
-		TimeUnit.SECONDS.sleep(2);
 	}
 
 	protected void openHomePage() {
