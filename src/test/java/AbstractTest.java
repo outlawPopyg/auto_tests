@@ -18,11 +18,13 @@ public abstract class AbstractTest {
 	protected boolean acceptNextAlert = true;
 	protected StringBuffer verificationErrors = new StringBuffer();
 	JavascriptExecutor js;
+	private static final String username = "outlaw";
+	private static final String password = "i!7am@pj_2CJUfd";
 
 	@Before
 	public void setUp() throws Exception {
 		driver = new ChromeDriver();
-		baseUrl = "https://www.google.com/";
+		baseUrl = "https://ap-pro.ru";
 		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
 		js = (JavascriptExecutor) driver;
 	}
@@ -36,7 +38,7 @@ public abstract class AbstractTest {
 		}
 	}
 
-	protected void login(String username, String password) {
+	protected void login() {
 		if (!isElementPresented(By.linkText("Уже зарегистрированы? Войти"))) {
 			openHomePage();
 			driver.findElement(By.id("elUserSignIn")).click();
@@ -76,7 +78,14 @@ public abstract class AbstractTest {
 		}
 
 		if (profile.getSex() != null) {
-			// TODO
+			driver.findElement(By.id("elSelect_core_pfield_4")).click();
+			new Select(driver.findElement(By.id("elSelect_core_pfield_4"))).selectByVisibleText(profile.getSex().getValue());
+		}
+
+		if (profile.getName() != null) {
+			driver.findElement(By.id("elInput_core_pfield_6")).click();
+			driver.findElement(By.id("elInput_core_pfield_6")).clear();
+			driver.findElement(By.id("elInput_core_pfield_6")).sendKeys(profile.getName());
 		}
 
 		driver.findElement(By.xpath("//div[@class='ipsDialog']/div/div/form/ul/li/button")).click();
@@ -84,7 +93,7 @@ public abstract class AbstractTest {
 	}
 
 	protected void openHomePage() {
-		driver.get("https://ap-pro.ru");
+		driver.get(baseUrl);
 	}
 
 	private boolean isElementPresented(By element) {
