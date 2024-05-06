@@ -1,15 +1,12 @@
 package base;
 
-import lombok.SneakyThrows;
-import models.UserProfile;
+import lombok.Getter;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.fail;
 
@@ -20,8 +17,10 @@ public abstract class AbstractTest {
 	protected boolean acceptNextAlert = true;
 	protected StringBuffer verificationErrors = new StringBuffer();
 	JavascriptExecutor js;
-	private static final String username = "outlaw";
-	private static final String password = "i!7am@pj_2CJUfd";
+	@Getter
+	private final String username = "outlaw";
+	@Getter
+	private final String password = "i!7am@pj_2CJUfd";
 
 	@Before
 	public void setUp() {
@@ -61,7 +60,7 @@ public abstract class AbstractTest {
 		driver.get(baseUrl);
 	}
 
-	private boolean isElementPresented(By element) {
+	protected boolean isElementPresented(By element) {
 		try {
 			driver.findElement(element);
 			return true;
@@ -70,7 +69,7 @@ public abstract class AbstractTest {
 		}
 	}
 
-	private boolean isAlertPresent() {
+	protected boolean isAlertPresent() {
 		try {
 			driver.switchTo().alert();
 			return true;
@@ -79,7 +78,7 @@ public abstract class AbstractTest {
 		}
 	}
 
-	private String closeAlertAndGetItsText() {
+	protected String closeAlertAndGetItsText() {
 		try {
 			Alert alert = driver.switchTo().alert();
 			String alertText = alert.getText();
