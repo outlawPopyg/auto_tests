@@ -12,6 +12,7 @@ public abstract class AbstractEditProfile extends AbstractTest {
 	@SneakyThrows
 	protected void editProfile(UserProfile profile) {
 		WebDriver driver = getApplicationManager().getDriver();
+
 		getApplicationManager().getLoginHelper().login();
 
 		driver.findElement(By.id("cUserLink")).click();
@@ -47,5 +48,16 @@ public abstract class AbstractEditProfile extends AbstractTest {
 
 		driver.findElement(By.xpath("//div[@class='ipsDialog']/div/div/form/ul/li/button")).click();
 		TimeUnit.SECONDS.sleep(2);
+	}
+
+	protected WebDriver openEditPage() {
+		WebDriver driver = getApplicationManager().getDriver();
+
+		driver.findElement(By.id("cUserLink")).click();
+		driver.findElement(By.id("elUserLink")).click();
+		driver.findElement(By.linkText("Профиль")).click();
+		driver.findElement(By.xpath("//ul[@id='elEditProfile']/li[2]/a/span")).click();
+
+		return driver;
 	}
 }

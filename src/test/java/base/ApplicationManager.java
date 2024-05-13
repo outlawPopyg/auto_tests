@@ -23,11 +23,15 @@ public class ApplicationManager {
 	private final LoginHelper loginHelper;
 
 
-	public ApplicationManager() {
+	private ApplicationManager() {
 		driver = new ChromeDriver();
 		baseUrl = "https://ap-pro.ru";
 		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
 		js = (JavascriptExecutor) driver;
 		loginHelper = new LoginHelper(this);
+	}
+
+	public static ApplicationManager getInstance() {
+		return new ApplicationManager();
 	}
 }

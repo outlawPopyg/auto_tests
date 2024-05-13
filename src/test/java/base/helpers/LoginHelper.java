@@ -2,6 +2,8 @@ package base.helpers;
 
 import base.ApplicationManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 
 public class LoginHelper extends AbstractHelper {
 
@@ -10,8 +12,15 @@ public class LoginHelper extends AbstractHelper {
 	}
 
 	public void login() {
-		if (!isElementNotPresented(By.linkText("Уже зарегистрированы? Войти"))) {
-			openHomePage();
+		openHomePage();
+		WebElement login = null;
+		try {
+			login = getDriver().findElement(By.id("elUserSignIn"));
+		} catch (NoSuchElementException exception) {
+			System.out.println("Already authorized");
+		}
+
+		if (login != null) {
 			getDriver().findElement(By.id("elUserSignIn")).click();
 			getDriver().findElement(By.name("auth")).click();
 			getDriver().findElement(By.name("auth")).clear();
@@ -20,10 +29,7 @@ public class LoginHelper extends AbstractHelper {
 			getDriver().findElement(By.name("password")).clear();
 			getDriver().findElement(By.name("password")).sendKeys(manager.getPassword());
 			getDriver().findElement(By.id("elSignIn_submit")).click();
-		} else {
-			System.out.println("Already authorized");
 		}
-
 	}
 
 	public void logout() {
