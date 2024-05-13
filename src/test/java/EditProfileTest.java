@@ -1,4 +1,5 @@
 import base.basetests.AbstractEditProfile;
+import configuration.Settings;
 import models.UserProfile;
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 
 
 public class EditProfileTest extends AbstractEditProfile {
-//	@Test
+	@Test
 	public void editUserProfileBirthDate() {
 		System.out.println(Thread.currentThread().getName());
 		editProfile(UserProfile.builder()
@@ -28,9 +29,8 @@ public class EditProfileTest extends AbstractEditProfile {
 
 	}
 
-//	@Test
+	@Test
 	public void editUserProfileExtraData() {
-		System.out.println(Thread.currentThread().getName());
 		editProfile(UserProfile.builder()
 				.name("Калим")
 				.sex(UserProfile.SEX.M)
@@ -43,7 +43,6 @@ public class EditProfileTest extends AbstractEditProfile {
 
 		Assert.assertEquals("Калим", name);
 		Assert.assertEquals(UserProfile.SEX.M.getValue(), sex);
-
 	}
 
 }

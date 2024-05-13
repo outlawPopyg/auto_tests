@@ -8,12 +8,12 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class AbstractEditProfile extends AbstractTest {
+public abstract class AbstractEditProfile extends AbstractLogin {
 	@SneakyThrows
 	protected void editProfile(UserProfile profile) {
 		WebDriver driver = getApplicationManager().getDriver();
 
-		getApplicationManager().getLoginHelper().login();
+		login();
 
 		driver.findElement(By.id("cUserLink")).click();
 		driver.findElement(By.id("elUserLink")).click();

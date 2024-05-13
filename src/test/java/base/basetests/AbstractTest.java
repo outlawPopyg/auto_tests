@@ -15,11 +15,19 @@ import static org.junit.Assert.fail;
 
 @Getter
 public abstract class AbstractTest {
-	public static ThreadLocal<ApplicationManager> applicationManager =
+	private static final ThreadLocal<ApplicationManager> applicationManager =
 			ThreadLocal.withInitial(ApplicationManager::getInstance);
 
 	public static ApplicationManager getApplicationManager() {
 		return applicationManager.get();
+	}
+
+	public WebDriver getDriver() {
+		return getApplicationManager().getDriver();
+	}
+
+	public void openHomePage() {
+		getDriver().get(getApplicationManager().getBaseUrl());
 	}
 
 	@AfterClass

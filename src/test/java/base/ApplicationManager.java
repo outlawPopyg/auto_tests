@@ -1,6 +1,7 @@
 package base;
 
-import base.helpers.LoginHelper;
+import configuration.Settings;
+import configuration.SettingsDTO;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.JavascriptExecutor;
@@ -13,22 +14,23 @@ import java.time.Duration;
 @Setter
 public class ApplicationManager {
 	private WebDriver driver;
-	private String baseUrl;
-	private boolean acceptNextAlert = true;
-	private StringBuffer verificationErrors = new StringBuffer();
+	private boolean acceptNextAlert;
+	private StringBuffer verificationErrors;
 	private JavascriptExecutor js;
-	private String username = "outlaw";
-	private String password = "i!7am@pj_2CJUfd";
-
-	private final LoginHelper loginHelper;
-
+	private String baseUrl;
+	private String username;
+	private String password;
 
 	private ApplicationManager() {
+		SettingsDTO settings = Settings.loadProperties();
+		baseUrl = settings.getBaseUrl();
+		username = settings.getLogin();
+		password = settings.getPassword();
 		driver = new ChromeDriver();
-		baseUrl = "https://ap-pro.ru";
 		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
 		js = (JavascriptExecutor) driver;
-		loginHelper = new LoginHelper(this);
+		acceptNextAlert = true;
+		verificationErrors = new StringBuffer();
 	}
 
 	public static ApplicationManager getInstance() {

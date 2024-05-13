@@ -1,19 +1,24 @@
-import base.basetests.AbstractTest;
+import base.basetests.AbstractLogin;
+import configuration.Settings;
 import org.junit.Test;
 
-public class LoginTest extends AbstractTest {
-//	@Test
+public class LoginTest extends AbstractLogin {
+	@Test
 	public void loginTest() {
 		System.out.println(Thread.currentThread().getName());
-		getApplicationManager().getLoginHelper().login();
+		login();
 	}
 
-//	@Test
+	@Test
+	public void loginWithBadCredentials() {
+		Settings.setFilePath("bad-credentials.xml");
+		login();
+	}
+
+	@Test
 	public void logoutTest() {
 		System.out.println(Thread.currentThread().getName());
-
-		getApplicationManager().getLoginHelper().login();
-
-		getApplicationManager().getLoginHelper().logout();
+		login();
+		logout();
 	}
 }
