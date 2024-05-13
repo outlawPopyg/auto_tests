@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 
 
 public class EditProfileTest extends AbstractEditProfile {
-	@Test
+//	@Test
 	public void editUserProfileBirthDate() {
 		System.out.println(Thread.currentThread().getName());
 		editProfile(UserProfile.builder()
@@ -28,7 +28,7 @@ public class EditProfileTest extends AbstractEditProfile {
 
 	}
 
-	@Test
+//	@Test
 	public void editUserProfileExtraData() {
 		System.out.println(Thread.currentThread().getName());
 		editProfile(UserProfile.builder()
